@@ -143,16 +143,16 @@
 	}
 	map.on('click', onMapClick);
 
-	let url = 'https://api.sheety.co/1feb4913fd83932cb2cd734327d2eedd/runeMapper/pins';
-	fetch(url)
-	.then((response) => response.json())
-	.then(json => {
-		for (const pin of json.pins){
-			var mappin = L.marker(xy(pin.xCoordinateOnMap, pin.yCoordinateOnMap))
-			.addTo(map)
-			.bindPopup('<h3>'+pin["encounter /PinTitle"]+"</h3><pre>"+pin['encounterPromptsAndContent']+"</pre>");
-		}
-	});
+	// let url = 'https://api.sheety.co/1feb4913fd83932cb2cd734327d2eedd/runeMapper/pins';
+	// fetch(url)
+	// .then((response) => response.json())
+	// .then(json => {
+	// 	for (const pin of json.pins){
+	// 		var mappin = L.marker(xy(pin.xCoordinateOnMap, pin.yCoordinateOnMap))
+	// 		.addTo(map)
+	// 		.bindPopup('<h3>'+pin["encounter /PinTitle"]+"</h3><pre>"+pin['encounterPromptsAndContent']+"</pre>");
+	// 	}
+	// });
 
 	function createCORSRequest(method, url) {
 		var xhr = new XMLHttpRequest();
@@ -202,6 +202,8 @@
 
 		xhr.send();
 	}
+
+	refreshmap();
 </script>
 </body>
 </html>
