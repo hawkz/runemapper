@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>RuneMapper Crowd Sourced adventure content - RUNEHAMMER</title>
+
+	<link rel="icon" type="image/png" href="https://forums.runehammer.online/uploads/default/original/1X/462f4401039f1d8e0d0769b2c1e25e16ac02ee3b.png">
+	<link rel="apple-touch-icon" type="image/png" href="https://forums.runehammer.online/uploads/default/original/1X/123f0c6fb9ab937e5eab774b6915e89b9414b628.jpeg">
+	<meta name="theme-color" content="#151515">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+			font-family: 'Roboto', Helvetica, Arial, sans-serif;
+		}
+		header {
+			padding: 0.5em;
+			background: #151515;
+			color: white;
+		}
+		header h1 {
+			margin: 0;
+			font-size: 21px;
+			font-weight: 700;
+			line-height: 26px;
+		}
+		header div {
+			display: block;
+			
+		}
+		header div a {
+			color: white;
+			text-decoration: none;
+			font-size: 12px;
+			font-weight: 700;
+			line-height: 14px;
+			margin-right: 1em;
+			text-transform: uppercase;
+		}
+		header a:hover {
+			color: #BF1E2E;
+		}
+		header div a:before {
+			content: '';
+			display: inline-block;
+			width: 10px;
+			height: 10px;
+			background: #BF1E2E;
+			margin-right: 5px;
+		}
+		#site-logo {
+			width: 44px;
+			height: auto;
+			float: left;
+			margin-right: 10px;
+		}
+		.leaflet-container {
+			height: 1680px;
+			width: 2800px;
+			max-width: 100%;
+			max-height: calc(100% - 61px);
+			background: black;
+		}
+		a, .leaflet-container a {
+			color: #BF1E2E
+		}
+		.leaflet-marker-icon {
+			filter: hue-rotate(158deg) saturate(132%) brightness(70%) contrast(190%);
+		}
+		pre {
+			width: 300px;
+			border-top: 1px solid red;
+			white-space: break-spaces;
+			font-family: sans-serif;
+			height: 140px;
+			overflow: auto;
+			padding-top: 1em;
+			border-bottom: 1px solid red;
+		}
+	</style>
+</head>
+<body>
+<header id="header"><a href="https://forums.runehammer.online"><img src="https://forums.runehammer.online/uploads/default/original/1X/462f4401039f1d8e0d0769b2c1e25e16ac02ee3b.png" alt="RUNEHAMMER" id="site-logo"></a>
+	<h1>RuneMapper</h1>
+	<input type="text" id="forumURL" value="https://forums.runehammer.online/t/play-by-post-anyone/6439/928" placeholder="URL of Forum post" /><button id="refresh">Refresh</button>
+	<!-- <div><a href="index.html">Alfheim</a> <a href="warpshell.html">Warp Shell</a></div> -->
+</header>
+<div id='map'></div>
+<script>
+	var map = L.map('map', {
+		crs: L.CRS.Simple,
+		minZoom: -3,
+	});
+
+	var yx = L.latLng;
+
+	function xy(x, y) {
+		if (L.Util.isArray(x)) { // When doing xy([x, y]);
+			return yx(x[1], x[0]);
+		}
+		return yx(y, x); // When doing xy(x, y);
+	}
+
+	var bounds = [xy(0,0), xy(600, 1000)];
+	var image = L.imageOverlay('warpshell.webp', bounds).addTo(map);
+	map.attributionControl._attributions = {};
+	map.attributionControl.addAttribution("Map &copy; <a href='http://runehammer.online'>Runehammer</a>");
+	map.setView(xy(300, 500), 0);
+	var popup = L.popup();
+
+	function onMapClick(e) {
+		popup
+			.setLatLng(e.latlng)
+			.setContent("Copy: <b>[Pin:"+e.latlng.lng+","+e.latlng.lat+"]</b> and go to <a href='"+document.getElementById("forumURL").value+"'>The forum thread to post</a>")
+			.openOn(map);
+	}
+	map.on('click', onMapClick);
+
+	let url = document.getElementById("forumURL").value + '.json';
+	fetch(url)
+	.then((response) => response.json())
+	.then(json => {
+		for (const pin of json.pins.post_stream.posts){
+			console.log(pin);
+			
+			x.xCoordinateOnMap = -1;
+			y.yCoordinateOnMap = -1;
+			if ("[Pin:" in pin.cooked) {
+				console.log('found!');
+			}
+			var mappin = L.marker(xy(pin.xCoordinateOnMap, pin.yCoordinateOnMap))
+			.addTo(map)
+			.bindPopup(pin.cooked);
+		}
+	});
+</script>
+</body>
+</html>
