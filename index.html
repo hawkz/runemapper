@@ -7,6 +7,8 @@
 
 	<link rel="icon" type="image/png" href="https://forums.runehammer.online/uploads/default/original/1X/462f4401039f1d8e0d0769b2c1e25e16ac02ee3b.png">
 	<link rel="apple-touch-icon" type="image/png" href="https://forums.runehammer.online/uploads/default/original/1X/123f0c6fb9ab937e5eab774b6915e89b9414b628.jpeg">
+	<link href="https://forums.runehammer.online/stylesheets/desktop_16_e80f40cf281744aee14bb8f380252629091e6325.css?__ws=forums.runehammer.online" media="all" rel="stylesheet" data-target="desktop" data-theme-id="34"/>
+	<link href="https://forums.runehammer.online/stylesheets/desktop_theme_34_090fcccc58905a763f595fb2e1bbc80a1d23ec73.css?__ws=forums.runehammer.online" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="34"/>
 	<meta name="theme-color" content="#151515">
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,8 +48,11 @@
 			margin-right: 1em;
 			text-transform: uppercase;
 		}
+		header a:link, header a:visited {
+			color: white !important;
+		}
 		header a:hover {
-			color: #BF1E2E;
+			color: #BF1E2E !important;
 		}
 		header div a:before {
 			content: '';
@@ -63,12 +68,26 @@
 			float: left;
 			margin-right: 10px;
 		}
+		#forumURL {
+			background: black;
+			color: white;
+			height: 10px;
+			padding: 0 5px;
+			margin: 0;
+			min-height: 19px;
+		}
+		#refresh {
+			color: white;
+			background: red;
+			text-transform: uppercase;
+			border: none;
+		}
 		.leaflet-container {
 			height: 1680px;
 			width: 2800px;
 			max-width: 100%;
 			max-height: calc(100% - 61px);
-			background: #D0CABF;
+			background: black;
 		}
 		a, .leaflet-container a {
 			color: #BF1E2E
@@ -89,9 +108,9 @@
 	</style>
 </head>
 <body>
-<header id="header"><a href="https://forums.runehammer.online/t/runemapper-a-google-maps-for-building-worlds/6582"><img src="https://forums.runehammer.online/uploads/default/original/1X/462f4401039f1d8e0d0769b2c1e25e16ac02ee3b.png" alt="RUNEHAMMER" id="site-logo"></a>
+<header id="header"><a href="https://forums.runehammer.online"><img src="https://forums.runehammer.online/uploads/default/original/1X/462f4401039f1d8e0d0769b2c1e25e16ac02ee3b.png" alt="RUNEHAMMER" id="site-logo"></a>
 	<h1>RuneMapper</h1>
-	<div><a href="index.html">Alfheim</a> <a href="warpshell.html">Warp Shell</a></div>
+	<div><a href="index.html">Alfheim</a> <a href="warpshell.html">Warp Shell</a> <a href="#">Get posted</a> <input type="text" id="forumURL" value="https://forums.runehammer.online/t/runemapper-a-google-maps-for-building-worlds/6582/14" placeholder="URL of Forum post" /><button id="refresh" onclick="refreshmap()">Refresh</button></div>
 </header>
 <div id='map'></div>
 <script>
@@ -119,7 +138,7 @@
 	function onMapClick(e) {
 		popup
 			.setLatLng(e.latlng)
-			.setContent("<a href='https://docs.google.com/forms/d/e/1FAIpQLSdLXKft69_dy-LdSYLQFkjyM6qsLos_WpOCQwxhfuVSyTAm5w/viewform?usp=pp_url&entry.296051716="+e.latlng.lng+"&entry.1502940884="+e.latlng.lat+"'>Add pin here</a>")
+			.setContent("Copy: <b>[Pin:"+e.latlng.lng+","+e.latlng.lat+"]</b> and go to <a href='"+document.getElementById("forumURL").value+"'>The forum thread to post</a>")
 			.openOn(map);
 	}
 	map.on('click', onMapClick);
@@ -134,6 +153,55 @@
 			.bindPopup('<h3>'+pin["encounter /PinTitle"]+"</h3><pre>"+pin['encounterPromptsAndContent']+"</pre>");
 		}
 	});
+
+	function createCORSRequest(method, url) {
+		var xhr = new XMLHttpRequest();
+		if ("withCredentials" in xhr) {
+			// XHR for Chrome/Firefox/Opera/Safari.
+			xhr.open(method, url, true);
+		} else if (typeof XDomainRequest != "undefined") {
+			// XDomainRequest for IE.
+			xhr = new XDomainRequest();
+			xhr.open(method, url);
+		} else {
+			// CORS not supported.
+			xhr = null;
+		}
+		return xhr;
+	}
+
+	function refreshmap() {
+		map.eachLayer(function(layer) {
+			if (layer instanceof L.Marker)
+			{
+				map.removeLayer(layer)
+			}
+		})
+
+		var url = 'https://cors-anywhere.herokuapp.com/'+document.getElementById("forumURL").value+'.json';
+		var method = 'GET';
+		var xhr = createCORSRequest(method, url);
+
+		xhr.onload = function() {
+			for (const pin of JSON.parse(xhr.response).post_stream.posts){
+				pin.xCoordinateOnMap = -1;
+				pin.yCoordinateOnMap = -1;
+				if (pin.cooked.includes("[pin:")) {
+					xny = pin.cooked.slice(pin.cooked.indexOf('[pin:') +5,pin.cooked.indexOf(']')).split(",");
+					console.log(xny);
+					var mappin = L.marker(xy(xny[0], xny[1]))
+					.addTo(map)
+					.bindPopup(pin.cooked);
+				}
+			}
+		};
+
+		xhr.onerror = function() {
+			alert("Couldn't get forum data.");
+		};
+
+		xhr.send();
+	}
 </script>
 </body>
 </html>
