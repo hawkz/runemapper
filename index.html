@@ -168,7 +168,7 @@
 	function onMapClick(e) {
 		popup
 			.setLatLng(e.latlng)
-			.setContent("Copy: <b>[Pin:"+e.latlng.lng+","+e.latlng.lat+"]</b> and go to <a href='"+document.getElementById("forumURL").value+"'>The forum thread to post</a>")
+			.setContent("Copy: <b>[pin:"+e.latlng.lng+","+e.latlng.lat+"]</b> and go to <a href='"+document.getElementById("forumURL").value+"'>The forum thread to post</a>")
 			.openOn(map);
 	}
 	map.on('click', onMapClick);
