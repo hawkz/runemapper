@@ -1,45 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>RuneMapper Crowd Sourced adventure content - RUNEHAMMER</title>
 
-	<link rel="icon" type="image/png" href="https://forums.runehammer.online/uploads/default/original/1X/462f4401039f1d8e0d0769b2c1e25e16ac02ee3b.png">
-	<link rel="apple-touch-icon" type="image/png" href="https://forums.runehammer.online/uploads/default/original/1X/123f0c6fb9ab937e5eab774b6915e89b9414b628.jpeg">
-	<link href="https://forums.runehammer.online/stylesheets/desktop_16_e80f40cf281744aee14bb8f380252629091e6325.css?__ws=forums.runehammer.online" media="all" rel="stylesheet" data-target="desktop" data-theme-id="34"/>
-	<link href="https://forums.runehammer.online/stylesheets/desktop_theme_34_090fcccc58905a763f595fb2e1bbc80a1d23ec73.css?__ws=forums.runehammer.online" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="34"/>
+	<link rel="icon" type="image/png"
+		href="https://forums.runehammer.online/uploads/default/original/1X/462f4401039f1d8e0d0769b2c1e25e16ac02ee3b.png">
+	<link rel="apple-touch-icon" type="image/png"
+		href="https://forums.runehammer.online/uploads/default/original/1X/123f0c6fb9ab937e5eab774b6915e89b9414b628.jpeg">
+	<link
+		href="https://forums.runehammer.online/stylesheets/desktop_16_e80f40cf281744aee14bb8f380252629091e6325.css?__ws=forums.runehammer.online"
+		media="all" rel="stylesheet" data-target="desktop" data-theme-id="34" />
+	<link
+		href="https://forums.runehammer.online/stylesheets/desktop_theme_34_090fcccc58905a763f595fb2e1bbc80a1d23ec73.css?__ws=forums.runehammer.online"
+		media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="34" />
 	<meta name="theme-color" content="#151515">
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js" integrity="sha512-OFs3W4DIZ5ZkrDhBFtsCP6JXtMEDGmhl0QPlmWYBJay40TT1n3gt2Xuw8Pf/iezgW9CdabjkNChRqozl/YADmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+		integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+		crossorigin="" />
+	<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+		integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+		crossorigin=""></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js"
+		integrity="sha512-OFs3W4DIZ5ZkrDhBFtsCP6JXtMEDGmhl0QPlmWYBJay40TT1n3gt2Xuw8Pf/iezgW9CdabjkNChRqozl/YADmg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 	<style>
-		html, body {
+		html,
+		body {
 			height: 100%;
 			margin: 0;
 			font-family: 'Roboto', Helvetica, Arial, sans-serif;
 		}
+
 		header {
 			padding: 0.5em;
 			background: #151515;
 			color: white;
 		}
+
 		header h1 {
 			margin: 0;
 			font-size: 21px;
 			font-weight: 700;
 			line-height: 26px;
 		}
+
 		header div {
 			display: block;
-			
+
 		}
+
 		header div a {
 			color: white;
 			text-decoration: none;
@@ -49,12 +67,16 @@
 			margin-right: 1em;
 			text-transform: uppercase;
 		}
-		header a:link, header a:visited {
+
+		header a:link,
+		header a:visited {
 			color: white !important;
 		}
+
 		header a:hover {
 			color: #BF1E2E !important;
 		}
+
 		header div a:before {
 			content: '';
 			display: inline-block;
@@ -63,12 +85,14 @@
 			background: #BF1E2E;
 			margin-right: 5px;
 		}
+
 		#site-logo {
 			width: 44px;
 			height: auto;
 			float: left;
 			margin-right: 10px;
 		}
+
 		#forumURL {
 			background: black;
 			color: white;
@@ -77,12 +101,14 @@
 			margin: 0;
 			min-height: 19px;
 		}
+
 		#refresh {
 			color: white;
 			background: red;
 			text-transform: uppercase;
 			border: none;
 		}
+
 		.leaflet-container {
 			height: 1680px;
 			width: 2800px;
@@ -90,12 +116,16 @@
 			max-height: calc(100% - 61px);
 			background: black;
 		}
-		a, .leaflet-container a {
+
+		a,
+		.leaflet-container a {
 			color: #BF1E2E
 		}
+
 		.leaflet-marker-icon {
 			filter: hue-rotate(158deg) saturate(132%) brightness(70%) contrast(190%);
 		}
+
 		pre {
 			width: 300px;
 			border-top: 1px solid red;
@@ -107,9 +137,11 @@
 			border-bottom: 1px solid red;
 			line-height: 40px;
 		}
+
 		.mycluster {
-			background: rgb(97 144 224);;
-			color:white;
+			background: rgb(97 144 224);
+			;
+			color: white;
 			text-align: center;
 			border-radius: 100%;
 			font-weight: bold;
@@ -118,126 +150,130 @@
 		}
 	</style>
 </head>
+
 <body>
-<header id="header"><a href="https://forums.runehammer.online"><img src="https://forums.runehammer.online/uploads/default/original/1X/462f4401039f1d8e0d0769b2c1e25e16ac02ee3b.png" alt="RUNEHAMMER" id="site-logo"></a>
-	<h1>RuneMapper</h1>
-	<div><a href="index.html">Alfheim</a> <a href="warpshell.html">Warp Shell</a> <a href="#">Get posted</a> <input type="text" id="forumURL" value="https://forums.runehammer.online/t/runemapper-a-google-maps-for-building-worlds/6582/14" placeholder="URL of Forum post" /><button id="refresh" onclick="refreshmap()">Refresh</button></div>
-</header>
-<div id='map'></div>
-<script>
-
-	var queryDict = {}
-	location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]})
-	if("thread" in queryDict) {
-		document.getElementById("forumURL").value = queryDict.thread;
-	}
-
-	var map = L.map('map', {
-		crs: L.CRS.Simple,
-		minZoom: -3,
-		maxZoom: 3
-	});
-
-	var yx = L.latLng;
-
-	function xy(x, y) {
-		if (L.Util.isArray(x)) { // When doing xy([x, y]);
-			return yx(x[1], x[0]);
+	<header id="header"><a href="https://forums.runehammer.online"><img
+				src="https://forums.runehammer.online/uploads/default/original/1X/462f4401039f1d8e0d0769b2c1e25e16ac02ee3b.png"
+				alt="RUNEHAMMER" id="site-logo"></a>
+		<h1>RuneMapper</h1>
+		<div><a href="index.html">Alfheim</a> <a href="warpshell.html">Warp Shell</a> <a href="#">Get posted</a> <input
+				type="text" id="forumURL"
+				value="https://forums.runehammer.online/t/runemapper-a-google-maps-for-building-worlds/6582/14"
+				placeholder="URL of Forum post" /><button id="refresh" onclick="refreshmap()">Refresh</button></div>
+	</header>
+	<div id='map'></div>
+	<script>
+		var queryDict = {}
+		location.search.substr(1).split("&").forEach(function (item) {
+			queryDict[item.split("=")[0]] = item.split("=")[1]
+		})
+		if ("thread" in queryDict) {
+			document.getElementById("forumURL").value = queryDict.thread;
 		}
-		return yx(y, x);
-	}
 
-	var bounds = [xy(0,0), xy(2800, 1680)];
-	var image = L.imageOverlay('alfheim.webp', bounds).addTo(map);
-	map.attributionControl._attributions = {};
-	map.attributionControl.addAttribution("Map &copy; <a href='http://runehammer.online'>Runehammer</a>");
-	map.setView(xy(1400, 840), 0);
-	var popup = L.popup();
+		var map = L.map('map', {
+			crs: L.CRS.Simple,
+			minZoom: -3,
+			maxZoom: 3
+		});
 
-	var markers = L.markerClusterGroup({
-		iconCreateFunction: function (cluster) {
-			var markers2 = cluster.getAllChildMarkers();
-			console.log(markers);
-			var n = markers2.length;
-			return L.divIcon({ html: n, className: 'mycluster', iconSize: L.point(40, 40) });
-		},
-		//Disable all of the defaults:
-		spiderfyOnMaxZoom: true, showCoverageOnHover: true, zoomToBoundsOnClick: true
-	});
+		var yx = L.latLng;
 
-	function onMapClick(e) {
-		popup
-			.setLatLng(e.latlng)
-			.setContent("Copy: <b>[pin:"+e.latlng.lng+","+e.latlng.lat+"]</b> and go to <a href='"+document.getElementById("forumURL").value+"'>The forum thread to post</a>")
-			.openOn(map);
-	}
-	map.on('click', onMapClick);
-
-	function createCORSRequest(method, url) {
-		var xhr = new XMLHttpRequest();
-		if ("withCredentials" in xhr) {
-			// XHR for Chrome/Firefox/Opera/Safari.
-			xhr.open(method, url, true);
-		} else if (typeof XDomainRequest != "undefined") {
-			// XDomainRequest for IE.
-			xhr = new XDomainRequest();
-			xhr.open(method, url);
-		} else {
-			// CORS not supported.
-			xhr = null;
+		function xy(x, y) {
+			if (L.Util.isArray(x)) { // When doing xy([x, y]);
+				return yx(x[1], x[0]);
+			}
+			return yx(y, x);
 		}
-		return xhr;
-	}
 
-	function refreshmap() {
-		var url = 'https://cors-anywhere.herokuapp.com/'+document.getElementById("forumURL").value+'.json';
-		var method = 'GET';
-		var xhr = createCORSRequest(method, url);
+		var bounds = [xy(0, 0), xy(2800, 1680)];
+		var image = L.imageOverlay('alfheim.webp', bounds).addTo(map);
+		map.attributionControl._attributions = {};
+		map.attributionControl.addAttribution("Map &copy; <a href='http://runehammer.online'>Runehammer</a>");
+		map.setView(xy(1400, 840), 0);
+		var popup = L.popup();
 
-		xhr.onload = function() {
-			map.eachLayer(function(layer) {
-				if (layer instanceof L.Marker)
-				{
+		var markers = L.markerClusterGroup({
+			iconCreateFunction: function (cluster) {
+				var markers2 = cluster.getAllChildMarkers();
+				console.log(markers);
+				var n = markers2.length;
+				return L.divIcon({
+					html: n,
+					className: 'mycluster',
+					iconSize: L.point(40, 40)
+				});
+			},
+			//Disable all of the defaults:
+			spiderfyOnMaxZoom: true,
+			showCoverageOnHover: true,
+			zoomToBoundsOnClick: true
+		});
+
+		function onMapClick(e) {
+			popup
+				.setLatLng(e.latlng)
+				.setContent("Copy: <b>[pin:" + e.latlng.lng + "," + e.latlng.lat + "]</b> and go to <a href='" + document
+					.getElementById("forumURL").value + "'>The forum thread to post</a>")
+				.openOn(map);
+		}
+		map.on('click', onMapClick);
+
+		function refreshmap() {
+			var url = document.getElementById("forumURL").value + '.json';
+			var method = 'GET';
+
+			fetch(
+					`https://api.allorigins.win/get?url=${encodeURIComponent(document.getElementById("forumURL").value+'.json')}`)
+				.then(response => {
+					if (response.ok) return response.json()
+					throw new Error('Network response was not ok.')
+				})
+				.then(data => process(data.contents));
+		}
+
+		function process(data) {
+			map.eachLayer(function (layer) {
+				if (layer instanceof L.Marker) {
 					map.removeLayer(layer)
 				}
-				if (layer instanceof L.MarkerClusterGroup)
-				{
+				if (layer instanceof L.MarkerClusterGroup) {
 					map.removeLayer(layer)
 				}
 			})
 			markers = L.markerClusterGroup({
 				iconCreateFunction: function (cluster) {
 					var markers2 = cluster.getAllChildMarkers();
-					console.log(markers);
+					// console.log(markers);
 					var n = markers2.length;
-					return L.divIcon({ html: n, className: 'mycluster', iconSize: L.point(40, 40) });
+					return L.divIcon({
+						html: n,
+						className: 'mycluster',
+						iconSize: L.point(40, 40)
+					});
 				},
 				//Disable all of the defaults:
-				spiderfyOnMaxZoom: true, showCoverageOnHover: true, zoomToBoundsOnClick: true
+				spiderfyOnMaxZoom: true,
+				showCoverageOnHover: true,
+				zoomToBoundsOnClick: true
 			});
-			
-			for (const pin of JSON.parse(xhr.response).post_stream.posts){
+
+			for (const pin of JSON.parse(data).post_stream.posts) {
 				pin.xCoordinateOnMap = -1;
 				pin.yCoordinateOnMap = -1;
 				if (pin.cooked.includes("[pin:")) {
-					xny = pin.cooked.slice(pin.cooked.indexOf('[pin:') +5,pin.cooked.indexOf(']')).split(",");
-					console.log(xny);
+					xny = pin.cooked.slice(pin.cooked.indexOf('[pin:') + 5, pin.cooked.indexOf(']')).split(",");
+					// console.log(xny);
 					var mappin = L.marker(xy(xny[0], xny[1]));
 					mappin.bindPopup(pin.cooked);
 					markers.addLayer(mappin);
 				}
 			}
 			map.addLayer(markers)
-		};
+		}
 
-		xhr.onerror = function() {
-			alert("Couldn't get forum data.");
-		};
-
-		xhr.send();
-	}
-
-	refreshmap();
-</script>
+		refreshmap();
+	</script>
 </body>
+
 </html>
