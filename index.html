@@ -148,6 +148,10 @@
 			line-height: 38px;
 			font-size: 14px;
 		}
+		.leaflet-popup-content {
+			max-height: 50vh;
+			overflow: auto;
+		}
 	</style>
 </head>
 
@@ -158,7 +162,7 @@
 		<h1>RuneMapper</h1>
 		<div><a href="index.html">Alfheim</a> <a href="warpshell.html">Warp Shell</a> <a href="#">Get posted</a> <input
 				type="text" id="forumURL"
-				value="https://forums.runehammer.online/t/runemapper-a-google-maps-for-building-worlds/6582/14"
+				value="https://forums.runehammer.online/t/runemapper-a-google-maps-for-building-worlds/6582"
 				placeholder="URL of Forum post" /><button id="refresh" onclick="refreshmap()">Refresh</button></div>
 	</header>
 	<div id='map'></div>
@@ -220,11 +224,9 @@
 		map.on('click', onMapClick);
 
 		function refreshmap() {
-			var url = document.getElementById("forumURL").value + '.json';
-			var method = 'GET';
 
 			fetch(
-					`https://api.allorigins.win/get?url=${encodeURIComponent(document.getElementById("forumURL").value+'.json')}`)
+					`https://api.allorigins.win/get?url=${encodeURIComponent(document.getElementById("forumURL").value+'/999999999.json')}`)
 				.then(response => {
 					if (response.ok) return response.json()
 					throw new Error('Network response was not ok.')
@@ -263,7 +265,7 @@
 				pin.yCoordinateOnMap = -1;
 				if (pin.cooked.includes("[pin:")) {
 					xny = pin.cooked.slice(pin.cooked.indexOf('[pin:') + 5, pin.cooked.indexOf(']')).split(",");
-					// console.log(xny);
+					console.log(xny);
 					var mappin = L.marker(xy(xny[0], xny[1]));
 					mappin.bindPopup(pin.cooked);
 					markers.addLayer(mappin);
